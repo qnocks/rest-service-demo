@@ -2,7 +2,6 @@ package stream
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/nats-io/stan.go"
 	"team-task/internal/dto"
 	"team-task/internal/storage"
@@ -38,7 +37,7 @@ func (c *STANClient) Listen(store *storage.Storage) error {
 }
 
 func (c *STANClient) handleSubscribe(msg *stan.Msg, s *storage.Storage) {
-	fmt.Println(string(msg.Data))
+	logger.Infof("receiving from stan: %s\n", string(msg.Data))
 
 	var userGrade dto.UserGrade
 	if err := json.Unmarshal(msg.Data, &userGrade); err != nil {
